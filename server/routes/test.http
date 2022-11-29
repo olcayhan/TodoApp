@@ -1,0 +1,23 @@
+POST http://localhost:5000/todos/addtodo
+Content-Type: application/json
+
+{
+    "name":"harke",
+    "important":"true",
+    "complete":"true",
+    "userID":"12220"
+    
+}
+
+###
+
+POST http://localhost:5000/users/signin
+Content-Type: application/json
+
+{
+    "email":"true",
+    "password":"true"    
+}
+
+
+###
