@@ -50,11 +50,10 @@ export default function TodoList() {
 
                 <div style={(completeControl) ? { visibility: "visible" } : { visibility: "hidden" }}>
                     {
-                        lengthOfCompleteTodo.length !== 0 ?
-                            todos.map((item) => {
-                                return item.complete === true ? <Todo todo={item} completeControl={completeControl} /> : <span></span>
-                            })
-                            : <span></span>
+                        lengthOfCompleteTodo.length !== 0 && todos.map((item) => {
+                            return item.complete && <Todo todo={item} completeControl={completeControl} />
+                        })
+
                     }
 
                 </div>

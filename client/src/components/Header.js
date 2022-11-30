@@ -48,6 +48,8 @@ export default function Header() {
                 className='header-button'
                 onClick={(e) => {
                   setSignin(false)
+                  localStorage.setItem("userID", null)
+                  localStorage.setItem("user", false)
                   navigate("/signin")
                 }}> Sign Out</button> :
 

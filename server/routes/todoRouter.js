@@ -1,6 +1,11 @@
-const express = require("express")
+const express = require("express");
+const findByIdAndDelete = require("../models/todoModel.js");
 const Todo = require("../models/todoModel.js")
 const router = express.Router()
+
+
+
+/* =========================== ADD TODO ======================== */
 
 router.post("/addtodo", async (req, res) => {
     try {
@@ -21,10 +26,14 @@ router.post("/addtodo", async (req, res) => {
 
 })
 
+/* =========================== GET TODO ======================== */
 
-router.get("/gettodo", async (req, res) => {
+
+router.post("/gettodo", async (req, res) => {
     try {
-        const other = await Todo.find({ email: mail });
+
+        const { id } = req.body
+        const other = await Todo.find({ userID: id });
         return res.status(200).json({ other })
 
     } catch (err) {
@@ -33,17 +42,24 @@ router.get("/gettodo", async (req, res) => {
 })
 
 
+
+/* =========================== DELETE TODO ======================== */
+
 router.post("/deletetodo", async (req, res) => {
     try {
 
-        const { } = req.body
+        console.log(req.body);
+        const { id } = req.body
+        const result = await Todo.findByIdAndDelete({ _id: id });
 
-        return res.status(200).json(req.body)
+
+        return res.status(200).json(result)
 
     } catch (err) {
         return res.status(400).json({ message: err.message })
     }
 
 })
+
 module.exports = router
 

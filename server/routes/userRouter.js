@@ -3,16 +3,18 @@ const User = require("../models/userModel.js")
 const bcryptjs = require("bcryptjs")
 const router = express.Router()
 
+
+/* =============== ADD USER ==================== */
+
 router.post("/signup", async (req, res) => {
     try {
         console.log(req.body);
-        const { fullname, password, phoneNumber, email, todos } = req.body
+        const { fullname, password, phoneNumber, email } = req.body
 
         const userExists = await User.findOne({ email })
         if (userExists) return res.status(400).json({ message: "User already exist" })
 
         const hashedPassword = await bcryptjs.hash(password, 10)
-
         const createdUser = await User.create({
             fullname,
             email,
@@ -26,6 +28,10 @@ router.post("/signup", async (req, res) => {
     }
 
 })
+
+
+
+/* =============== AUTH USER ==================== */
 
 router.post("/signin", async (req, res) => {
     try {

@@ -10,13 +10,17 @@ const HTTP = axios.create({
 
 // getting user objects in the database for sign user
 
-export const login = async (formData) => {
+export const logintoDB = async (formData) => {
      return await HTTP.post("/users/signin", formData)
 }
 
 // setting user objects in the database for register user
 
-export const register = async (formData) => {
+export const registertoDB = async (formData) => {
+     return await HTTP.post("/users/signup", formData)
+}
+
+export const getUsertoDB = async (formData) => {
      return await HTTP.post("/users/signup", formData)
 }
 
@@ -29,8 +33,9 @@ export const addTodotoDB = async (formData) => {
 
 
 // getting todo objects in the database
-export const getTodotoDB = async () => {
-     return await HTTP.get("/todos/gettodo")
+export const getTodotoDB = async (id) => {
+     console.log(id)
+     return await HTTP.post("/todos/gettodo", { id })
 
 }
 
