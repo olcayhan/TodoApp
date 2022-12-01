@@ -34,8 +34,13 @@ export const addTodotoDB = async (formData) => {
 
 // getting todo objects in the database
 export const getTodotoDB = async (id) => {
-     console.log(id)
      return await HTTP.post("/todos/gettodo", { id })
+
+}
+
+// getting todo objects in the database
+export const toggleTodotoDB = async (id) => {
+     return await HTTP.post("/todos/toggletodo", { id })
 
 }
 

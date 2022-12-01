@@ -12,11 +12,11 @@ export default function Todo({ todo, completeControl }) {
     return (
         <>
 
-            <button className='todo--todos' onClick={handleShow}>
+            <div className='todo--todos' onClick={handleShow}>
                 <button
                     type="checkbox"
                     className='todo--completebtn'
-                    onClick={() => { toggleTodo(todo.id) }}
+                    onClick={() => { toggleTodo(todo._id) }}
                     style={(todo.complete && completeControl) ? { backgroundColor: "#748DA6", color: "white", border: "none" } : {}}>
 
                     <i className="fa fa-check" style={(todo.complete && completeControl) ? { visibility: "visible" } : {}} aria-hidden="true"></i>
@@ -33,7 +33,7 @@ export default function Todo({ todo, completeControl }) {
                     }
                 </button>
 
-            </button >
+            </div >
         </>
     )
 }

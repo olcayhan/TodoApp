@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { addTodotoDB, getTodotoDB, logintoDB, registertoDB } from '../axios'
+import React, { useContext, useEffect, useState, useLayoutEffect } from "react";
+import { addTodotoDB, getTodotoDB, logintoDB, registertoDB, toggleTodotoDB, deleteTodotoDB } from '../axios'
 
 
 const TodoContext = React.createContext();
@@ -16,6 +16,8 @@ export const TodoProvider = ({ children }) => {
     const [signin, setSignin] = useState(localStorage.getItem("user"));
     const [userIDtoDB, setUserIDtoDB] = useState(localStorage.getItem("userID"));
     const [todos, setTodos] = useState([])
+    const [isRender, setIsRender] = useState(false)
+
 
 
     // setting user to take data
@@ -32,6 +34,17 @@ export const TodoProvider = ({ children }) => {
 
 
     }, [signin])
+
+
+    useEffect(() => {
+        getTodotoDB(userIDtoDB)
+            .then((res) => {
+                setTodos([...res.data.other])
+            })
+            .catch((err) => { console.log(err.message) });
+
+        setIsRender(false)
+    }, [isRender])
 
 
     // ======================= LOGIN =================================
@@ -57,20 +70,20 @@ export const TodoProvider = ({ children }) => {
 
 
 
-
     // ========================== TODOS ================================
     function addNewTodos(name) {
         addTodotoDB({ name, important: false, complete: false, userID: userIDtoDB })
             .then((res) => console.log(res.data))
             .catch((err) => { console.log(err) })
+        setIsRender(true)
     }
 
 
     function toggleTodo(id) {
-        const newTodos = [...todos]
-        const todo = newTodos.find(todo => todo.id === id)
-        todo.complete = !todo.complete
-        setTodos(newTodos)
+        toggleTodotoDB(id)
+            .then((res) => { console.log(res.data) })
+            .catch((err) => { console.log(err) })
+        setIsRender(true)
     }
 
     function importantTodos(id) {
@@ -79,11 +92,11 @@ export const TodoProvider = ({ children }) => {
         todo.important = !todo.important
         setTodos(newTodos)
 
-
     }
     function deleteTodos() {
         const newTodos = todos.filter(todo => todo.complete === false)
         setTodos(newTodos)
+        deleteTodotoDB()
     }
 
 

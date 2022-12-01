@@ -24,12 +24,35 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:5000/users/getuser
+POST  http://localhost:5000/todos/gettodo
 Content-Type: application/json
 
 {
-
+  "userID": "63867e80e2fe63d5a4f6c812"
 }
 
+
+###
+
+
+POST http://localhost:5000/todos/toggletodo
+Content-Type: application/json
+
+{
+    "_id": "63867e80e2fe63d5a4f6c812"
+    
+}
+
+###
+
+POST http://localhost:5000/todos/deletetodo
+Content-Type: application/json
+
+{
+    "userID": "63867e80e2fe63d5a4f6c812",
+    "complete":"false"
+
+    
+}
 
 ###

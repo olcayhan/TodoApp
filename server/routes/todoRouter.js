@@ -1,5 +1,4 @@
 const express = require("express");
-const findByIdAndDelete = require("../models/todoModel.js");
 const Todo = require("../models/todoModel.js")
 const router = express.Router()
 
@@ -42,6 +41,30 @@ router.post("/gettodo", async (req, res) => {
 })
 
 
+/* ===================== TOGGLE TODO ================== */
+router.post("/toggletodo", async (req, res) => {
+    try {
+
+        const { id } = req.body
+
+        const todo = await Todo.findOne({ _id: id });
+
+        const other = await Todo.updateOne(
+            { _id: id },
+            {
+                $set: {
+                    complete: !todo.complete
+                }
+            }
+        );
+        return res.status(200).json({ other })
+
+    } catch (err) {
+        return res.status(400).json({ message: err.message })
+    }
+})
+
+
 
 /* =========================== DELETE TODO ======================== */
 
@@ -50,7 +73,7 @@ router.post("/deletetodo", async (req, res) => {
 
         console.log(req.body);
         const { id } = req.body
-        const result = await Todo.findByIdAndDelete({ _id: id });
+        const result = await Todo.deleteMany({ userID: id, complete: true });
 
 
         return res.status(200).json(result)

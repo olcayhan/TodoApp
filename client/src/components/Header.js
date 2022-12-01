@@ -25,7 +25,7 @@ export default function Header() {
 
         <Row>
           <div className='header-home-section'>
-            <a href="#/home" style={signin ? { visibility: "visible" } : { visibility: "hidden" }}>
+            <a href="/home" style={signin ? { visibility: "visible" } : { visibility: "hidden" }}>
               <i className="fa-regular fa-sun"></i>
               <span>Tasks</span>
             </a>
@@ -34,7 +34,7 @@ export default function Header() {
 
         <Row>
           <div className='header-important-section' >
-            <a href="#/important" style={signin ? { visibility: "visible" } : { visibility: "hidden" }}>
+            <a href="/important" style={signin ? { visibility: "visible" } : { visibility: "hidden" }}>
               <i className="fa-regular fa-star"></i>
               <span>Important</span>
             </a>
