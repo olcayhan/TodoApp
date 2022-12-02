@@ -34,6 +34,7 @@ export default function Todo({ todo, completeControl }) {
                 </button>
 
             </div >
+            
         </>
     )
 }

@@ -20,13 +20,11 @@ export default function Header() {
 
 
 
-      <Col className='header-row'>
-
-
+      <Col className='sidebar'>
         <Row>
           <div className='header-home-section'>
             <a href="/home" style={signin ? { visibility: "visible" } : { visibility: "hidden" }}>
-              <i className="fa-regular fa-sun"></i>
+              <i className="fa fa-home"></i>
               <span>Tasks</span>
             </a>
           </div>
@@ -41,7 +39,7 @@ export default function Header() {
           </div>
         </Row>
 
-        <Row>
+        {/* <Row>
           {
             signin ?
               <button
@@ -61,7 +59,7 @@ export default function Header() {
                 Sign In
               </button>
           }
-        </Row>
+        </Row> */}
 
       </Col>
 

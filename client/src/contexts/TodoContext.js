@@ -16,7 +16,6 @@ export const TodoProvider = ({ children }) => {
     const [signin, setSignin] = useState(localStorage.getItem("user"));
     const [userIDtoDB, setUserIDtoDB] = useState(localStorage.getItem("userID"));
     const [todos, setTodos] = useState([])
-    const [isRender, setIsRender] = useState(false)
 
 
 
@@ -31,8 +30,6 @@ export const TodoProvider = ({ children }) => {
                 setTodos([...res.data.other])
             })
             .catch((err) => { console.log(err.message) });
-
-
     }, [signin])
 
 
@@ -42,9 +39,7 @@ export const TodoProvider = ({ children }) => {
                 setTodos([...res.data.other])
             })
             .catch((err) => { console.log(err.message) });
-
-        setIsRender(false)
-    }, [isRender])
+    }, [todos])
 
 
     // ======================= LOGIN =================================
@@ -75,7 +70,6 @@ export const TodoProvider = ({ children }) => {
         addTodotoDB({ name, important: false, complete: false, userID: userIDtoDB })
             .then((res) => console.log(res.data))
             .catch((err) => { console.log(err) })
-        setIsRender(true)
     }
 
 
@@ -83,7 +77,6 @@ export const TodoProvider = ({ children }) => {
         toggleTodotoDB(id)
             .then((res) => { console.log(res.data) })
             .catch((err) => { console.log(err) })
-        setIsRender(true)
     }
 
     function importantTodos(id) {

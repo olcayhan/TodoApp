@@ -214,11 +214,14 @@ body {
 }
 
 
-.header-row {
-    position: absolute;
-    background-color: #555;
-    height: 100%;
+.sidebar {
+    position: fixed;
+    display: inline-flex;
+    flex-direction: column;
     width: 250px;
+    height: 100%;
+    background-color: #FCFDF2;
+
 
 }
 
@@ -229,48 +232,42 @@ body {
     margin: 0px -11px;
 }
 
-.header--head p {
-    font-weight: 600;
-    margin: 30px 35px;
+.header-home-section{
+    width: 100%;
+    font-size: 18px;
 }
 
-
 .header-home-section a {
-    position: absolute;
-    width: 100%;
-    font-size: 20px;
-    padding: 10px;
-    margin-top: 10px;
     text-decoration: none;
     color: #111;
+    padding-right: 50%;
+    margin-left: 5px;
 }
 
 .header-home-section i {
-    margin-left: 6px;
-    margin-right: 4px;
-    color: grey;
+    margin: 0 10px;
+    color: #8D9EFF;
 }
 
 .header-home-section a:hover {
     opacity: 0.8;
-    color: #111;
     background-color: #CFD2CF;
 }
 
+.header-important-section{
+    width: 100%;
+    font-size: 18px;
+}
 
 .header-important-section a {
-    position: absolute;
-    width: 100%;
-    padding: 10px;
-    font-size: 20px;
-    margin-top: 80px;
     text-decoration: none;
     color: #111;
+    padding-right: 50%;
+    margin-left: 5px;
 }
 
 .header-important-section i {
-    margin-left: 6px;
-    margin-right: 4px;
+    margin: 0 10px;
     color: crimson;
 }
 
@@ -385,7 +382,7 @@ body {
     }
 
 
-    .header-row {
+    .sidebar {
         z-index: 9999;
         left: -1000px;
         transition: all 0.5s ease;
@@ -393,7 +390,7 @@ body {
     }
 
 
-    #check:checked~.header-row {
+    #check:checked~.sidebar {
         left: 0;
     }
 
