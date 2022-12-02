@@ -65,16 +65,40 @@ router.post("/toggletodo", async (req, res) => {
 })
 
 
+/* ===================== important TODO ================== */
+router.post("/importanttodo", async (req, res) => {
+    try {
+
+        const { id } = req.body
+
+        const todo = await Todo.findOne({ _id: id });
+        const other = await Todo.updateOne(
+            { _id: id },
+            {
+                $set: {
+                    important: !todo.important
+                }
+            }
+        );
+        return res.status(200).json({ other })
+
+    } catch (err) {
+        return res.status(400).json({ message: err.message })
+    }
+})
+
+
 
 /* =========================== DELETE TODO ======================== */
 
 router.post("/deletetodo", async (req, res) => {
     try {
 
-        console.log(req.body);
         const { id } = req.body
-        const result = await Todo.deleteMany({ userID: id, complete: true });
 
+        // console.log(todo)
+        const result = await Todo.deleteMany({ userID: id, complete: true });
+        console.log(result)
 
         return res.status(200).json(result)
 

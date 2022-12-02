@@ -39,7 +39,7 @@ export default function Header() {
           </div>
         </Row>
 
-        {/* <Row>
+        <Row>
           {
             signin ?
               <button
@@ -59,7 +59,7 @@ export default function Header() {
                 Sign In
               </button>
           }
-        </Row> */}
+        </Row>
 
       </Col>
 

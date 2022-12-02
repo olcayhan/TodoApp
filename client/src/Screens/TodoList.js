@@ -24,9 +24,7 @@ export default function TodoList() {
         <div className='todos-main'>
             {
                 todos.length !== 0 ? todos.map(todo => {
-                    return !todo.complete ?
-                        <Todo todo={todo} completeControl={completeControl} /> :
-                        <span></span>
+                    return !todo.complete && <Todo todo={todo} completeControl={completeControl} />
                 }) : <StartScreen />
             }
 
@@ -34,18 +32,17 @@ export default function TodoList() {
 
             <div className='mt-4'>
                 {
-                    lengthOfCompleteTodo.length !== 0 ?
-                        <button className='todo--completedbtn'
-                            onClick={() => {
-                                if (completeControl) setCompleteControl(false)
-                                else setCompleteControl(true)
-                            }}>
+                    lengthOfCompleteTodo.length !== 0 && <button className='todo--completedbtn'
+                        onClick={() => {
+                            if (completeControl) setCompleteControl(false)
+                            else setCompleteControl(true)
+                        }}>
 
-                            <i className="fa fa-angle-down me-2" style={completeControl ? { transform: "rotate(0deg)", transition: "all 0.3s ease" } : { transform: "rotate(-90deg)", transition: "all 0.3s ease" }}></i>
-                            Completed
-                            <span className='ms-2 me-2'>{lengthOfCompleteTodo.length}</span>
+                        <i className="fa fa-angle-down me-2" style={completeControl ? { transform: "rotate(0deg)", transition: "all 0.3s ease" } : { transform: "rotate(-90deg)", transition: "all 0.3s ease" }}></i>
+                        Completed
+                        <span className='ms-2 me-2'>{lengthOfCompleteTodo.length}</span>
 
-                        </button> : <span></span>
+                    </button>
                 }
 
                 <div style={(completeControl) ? { visibility: "visible" } : { visibility: "hidden" }}>
@@ -77,9 +74,7 @@ export default function TodoList() {
                     }
                 }} />
 
-                <button className="todo--deletebtn" onClick={() => {
-                    deleteTodos()
-                }} >
+                <button className="todo--deletebtn" onClick={() => deleteTodos()} >
                     <i className="fa-sharp fa-solid fa-trash"></i>
                 </button>
 

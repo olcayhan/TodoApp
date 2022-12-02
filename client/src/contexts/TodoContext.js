@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState, useLayoutEffect } from "react";
-import { addTodotoDB, getTodotoDB, logintoDB, registertoDB, toggleTodotoDB, deleteTodotoDB } from '../axios'
+import React, { useContext, useEffect, useState } from "react";
+import { addTodotoDB, getTodotoDB, logintoDB, registertoDB, toggleTodotoDB, deleteTodotoDB, importantTodotoDB } from '../axios'
 
 
 const TodoContext = React.createContext();
@@ -80,16 +80,15 @@ export const TodoProvider = ({ children }) => {
     }
 
     function importantTodos(id) {
-        const newTodos = [...todos]
-        const todo = newTodos.find(todo => todo.id === id)
-        todo.important = !todo.important
-        setTodos(newTodos)
+        importantTodotoDB(id)
+            .then((res) => { console.log(res.data) })
+            .catch((err) => { console.log(err) })
 
     }
     function deleteTodos() {
-        const newTodos = todos.filter(todo => todo.complete === false)
-        setTodos(newTodos)
-        deleteTodotoDB()
+        deleteTodotoDB(userIDtoDB)
+            .then((res) => console.log(res))
+            .catch((err) => { console.log(err) })
     }
 
 

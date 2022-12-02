@@ -44,7 +44,11 @@ export const toggleTodotoDB = async (id) => {
 
 }
 
-export const deleteTodotoDB = async (formData) => {
-     return await HTTP.post("/todos/deletetodo", formData)
+export const importantTodotoDB = async (id) => {
+     return await HTTP.post("/todos/importanttodo", { id })
+}
+
+export const deleteTodotoDB = async (id) => {
+     return await HTTP.post("/todos/deletetodo", {id})
 
 }

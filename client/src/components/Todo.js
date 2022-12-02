@@ -25,7 +25,7 @@ export default function Todo({ todo, completeControl }) {
 
                 <span className='todo--text' style={(todo.complete) ? { textDecoration: "line-through" } : { textDecoration: "default" }} >{todo.name}</span>
 
-                <button className='todo--important' type="checkbox" onClick={() => { importantTodos(todo.id) }}>
+                <button className='todo--important' type="checkbox" onClick={() => { importantTodos(todo._id) }}>
                     {
                         (!todo.important) ?
                             <i className="fa-regular fa-star"></i> :
@@ -34,7 +34,7 @@ export default function Todo({ todo, completeControl }) {
                 </button>
 
             </div >
-            
+
         </>
     )
 }
