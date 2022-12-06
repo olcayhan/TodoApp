@@ -218,30 +218,31 @@ body {
     position: fixed;
     display: inline-flex;
     flex-direction: column;
-    width: 250px;
+    width: 20%;
     height: 100%;
     background-color: #FCFDF2;
-
-
 }
 
 
 .header--head {
-    background-color: #fff;
+    background-color: #00ADB5;
     opacity: 0.82;
-    margin: 0px -11px;
+    height: 250px;
+    margin: 0;
 }
 
-.header-home-section{
+.header-home-section {
     width: 100%;
     font-size: 18px;
+    margin: 0;
 }
 
 .header-home-section a {
     text-decoration: none;
     color: #111;
-    padding-right: 50%;
-    margin-left: 5px;
+    padding: 20px 0;
+
+
 }
 
 .header-home-section i {
@@ -254,16 +255,18 @@ body {
     background-color: #CFD2CF;
 }
 
-.header-important-section{
+.header-important-section {
     width: 100%;
     font-size: 18px;
+    margin: 0;
 }
 
 .header-important-section a {
     text-decoration: none;
     color: #111;
-    padding-right: 50%;
-    margin-left: 5px;
+    margin: 0;
+    padding: 20px 0;
+
 }
 
 .header-important-section i {
@@ -294,7 +297,6 @@ body {
 
 
 
-
 .checkbtn {
     position: relative;
     font-size: 30px;
@@ -308,15 +310,10 @@ body {
     z-index: 99999;
 }
 
-
 #check {
     display: none;
 
 }
-
-
-
-
 
 
 .important-main {
@@ -331,22 +328,19 @@ body {
 
 .authscreen {
     margin-top: 15%;
-    margin-left: auto;
     width: 50%;
     height: 300px;
-    text-align: justify;
-    border-radius: 50px;
-    background-image: linear-gradient(#AC4425, #293462);
+    border-radius: 30px;
+    background-image: linear-gradient(#00ADB5, #222831);
 
 }
 
 .signup-screen {
     margin-top: 5%;
-    margin-left: auto;
     width: 50%;
-    height: 600px;
-    border-radius: 50px;
-    background-image: linear-gradient(#AC4425, #293462);
+    height: 550px;
+    border-radius: 30px;
+    background-image: linear-gradient(#00ADB5, #222831);
 }
 
 .little-signin {
@@ -376,7 +370,7 @@ body {
 
 
 
-@media (max-width: 858px) {
+@media (max-width: 1100px) {
     .checkbtn {
         display: block;
     }
@@ -386,8 +380,9 @@ body {
         z-index: 9999;
         left: -1000px;
         transition: all 0.5s ease;
-        width: 80%;
+        width: 260px;
     }
+
 
 
     #check:checked~.sidebar {
@@ -408,21 +403,21 @@ body {
     }
 }
 
-@media (max-width: 858px) {
+@media (max-width: 733px) {
     .checkbtn {
         display: block;
     }
 
 
-    .header-row {
+    .sidebar {
         z-index: 9999;
         left: -1000px;
         transition: all 0.5s ease;
-        width: 80%;
+        width: 220px;
     }
 
 
-    #check:checked~.header-row {
+    #check:checked~.sidebar {
         left: 0;
     }
 
@@ -437,6 +432,5 @@ body {
 
     .startimp {
         margin: 0 -90px;
-
     }
 }

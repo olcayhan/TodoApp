@@ -23,8 +23,8 @@ export default function TodoList() {
     return (
         <div className='todos-main'>
             {
-                todos.length !== 0 ? todos.map(todo => {
-                    return !todo.complete && <Todo todo={todo} completeControl={completeControl} />
+                todos.length !== 0 ? todos.map((todo, key) => {
+                    return !todo.complete && <Todo todo={todo} key={key} completeControl={completeControl} />
                 }) : <StartScreen />
             }
 
@@ -47,8 +47,8 @@ export default function TodoList() {
 
                 <div style={(completeControl) ? { visibility: "visible" } : { visibility: "hidden" }}>
                     {
-                        lengthOfCompleteTodo.length !== 0 && todos.map((item) => {
-                            return item.complete && <Todo todo={item} completeControl={completeControl} />
+                        lengthOfCompleteTodo.length !== 0 && todos.map((item, key) => {
+                            return item.complete && <Todo todo={item} key={key} completeControl={completeControl} />
                         })
 
                     }
@@ -59,10 +59,9 @@ export default function TodoList() {
 
 
                 <button className='todo-addbtn' onClick={() => {
-                    if (todoNameRef.current.value !== "") {
-                        addNewTodos(todoNameRef.current.value);
+                    if (todoNameRef.current.value !== "") addNewTodos(todoNameRef.current.value);
 
-                    }
+
                     todoNameRef.current.value = "";
                 }} ></button>
 

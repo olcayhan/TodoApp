@@ -30,7 +30,7 @@ export const TodoProvider = ({ children }) => {
                 setTodos([...res.data.other])
             })
             .catch((err) => { console.log(err.message) });
-    }, [signin])
+    }, [signin, userIDtoDB])
 
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export const TodoProvider = ({ children }) => {
                 setTodos([...res.data.other])
             })
             .catch((err) => { console.log(err.message) });
-    }, [todos])
+    }, [todos, userIDtoDB])
 
 
     // ======================= LOGIN =================================
@@ -71,6 +71,11 @@ export const TodoProvider = ({ children }) => {
             .then((res) => console.log(res.data))
             .catch((err) => { console.log(err) })
     }
+    function addNewImportantTodos(name){
+        addTodotoDB({ name, important: true, complete: false, userID: userIDtoDB })
+        .then((res) => console.log(res.data))
+        .catch((err) => { console.log(err) })
+    }
 
 
     function toggleTodo(id) {
@@ -94,14 +99,15 @@ export const TodoProvider = ({ children }) => {
 
     return <TodoContext.Provider value={{
         loginUser,
+        addNewImportantTodos,
         registerUser,
         addNewTodos,
         toggleTodo,
         importantTodos,
         deleteTodos,
+        setSignin,
         todos,
         signin,
-        setSignin
 
     }}>
         {children}

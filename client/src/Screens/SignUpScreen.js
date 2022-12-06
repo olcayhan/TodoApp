@@ -72,7 +72,7 @@ export default function SignUpScreen() {
                             </Button>
                             <Form.Text className='text-center text-light mt-2'>
                                 Do you have an Account ?
-                                <Link to="/signin" className='little-signin'>Sign In</Link>
+                                <Link to="/" className='little-signin'>Sign In</Link>
                             </Form.Text>
 
                         </Form.Group>

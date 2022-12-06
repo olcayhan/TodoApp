@@ -27,18 +27,26 @@ export default function AuthScreen() {
                         e.preventDefault();
                         loginUser(formData)
                     }}>
-                        <Form.Group className='mb-3 text-light mt-4' controlId='formBasicEmail'>
+                        <Form.Group className='mb-3 text-light mt-4' controlId='formBasicEmail' >
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control onChange={(e) => setFormData({ ...formData, email: e.target.value })} type='email' placeholder='Enter email' />
+                            <Form.Control
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                type='email'
+                                placeholder='Enter email' />
                         </Form.Group>
 
                         <Form.Group className='mb-3 text-light' controlId='formBasicPassword'>
                             <Form.Label>Password</Form.Label>
-                            <Form.Control onChange={(e) => setFormData({ ...formData, password: e.target.value })} type='password' placeholder='Password' />
+                            <Form.Control
+                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                type='password'
+                                placeholder='Password' />
                         </Form.Group>
 
                         <Form.Group className='d-grid'>
-                            <Button disabled={formData.email === "" || formData.password === ""} type='submit' size="lg" style={{ backgroundColor: "#AC4425", border: "none" }} >
+                            <Button
+                                disabled={formData.email === "" || formData.password === ""} type='submit' size="lg"
+                                style={{ backgroundColor: "#AC4425", border: "none" }}>
                                 Sign In
                             </Button>
                             <Form.Text className='text-center mt-2 text-light'>

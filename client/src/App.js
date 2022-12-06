@@ -1,6 +1,6 @@
 // import needed library
 import Header from "./components/Header";
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Container } from "react-bootstrap"
 import AuthScreen from "./Screens/AuthScreen";
 import SignUpScreen from "./Screens/SignUpScreen";
@@ -20,7 +20,7 @@ export default function App() {
         <Container>
           <Routes>
 
-            <Route path="/signin" element={<AuthScreen />} />
+            <Route path="/" element={<AuthScreen />} />
             <Route path="/signup" element={<SignUpScreen />} />
             <Route path="/home" element={<TodoList />} />
             <Route path="/important" element={<Important />} />
