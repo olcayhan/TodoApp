@@ -1,6 +1,6 @@
 // import needed library
 import Header from "./components/Header";
-import { BrowserRouter as Router, Routes, Route, HashRouter } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import { Container } from "react-bootstrap"
 import AuthScreen from "./Screens/AuthScreen";
 import SignUpScreen from "./Screens/SignUpScreen";
