@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom"
 import { useTodo } from '../contexts/TodoContext';
@@ -7,6 +8,7 @@ import { useTodo } from '../contexts/TodoContext';
 export default function Header() {
   const navigate = useNavigate()
   const { signin, setSignin } = useTodo()
+
 
   return (
     <>
@@ -41,7 +43,7 @@ export default function Header() {
 
         <Row>
           {
-            signin ?
+            signin  ?
               <button
                 className='header-button'
                 onClick={(e) => {
@@ -49,13 +51,11 @@ export default function Header() {
                   localStorage.setItem("userID", null)
                   localStorage.setItem("user", false)
                   navigate("/signin")
-                }}> Sign Out</button> :
-
-              <button
-                className='header-button'
-                onClick={() => {
-                  navigate("/signin")
-                }}>
+                }}> Sign Out</button> : <button
+                  className='header-button'
+                  onClick={() => {
+                    navigate("/signin")
+                  }}>
                 Sign In
               </button>
           }
