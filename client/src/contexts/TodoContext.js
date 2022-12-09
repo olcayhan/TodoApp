@@ -21,17 +21,11 @@ export const TodoProvider = ({ children }) => {
 
     // setting user to take data
     useEffect(() => {
-        if (!signin) {
-            setUserIDtoDB()
-        }
-
+        if (!signin) setUserIDtoDB()
         getTodos()
-
         setRender(false)
     }, [isRender])
 
-
-    console.log(isRender)
 
     // ======================= LOGIN =================================
     function loginUser(formData) {
