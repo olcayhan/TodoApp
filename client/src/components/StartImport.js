@@ -1,12 +1,12 @@
-import React from 'react'
-import imp from "../images/imp.png"
+import React from "react";
+import imp from "../images/imp.png";
 
 export default function StartImport() {
-    return (
-        <div className='startimp'>
-            <img src={imp} alt="home" />
-            <h4>Starring To Do's</h4>
-            <p>Try starring some tasks to see them here</p>
-        </div>
-    )
+  return (
+    <div className="startimp">
+      <img src={imp} alt="home" />
+      <h4>Starring To Do's</h4>
+      <p>Try starring some tasks to see them here</p>
+    </div>
+  );
 }
