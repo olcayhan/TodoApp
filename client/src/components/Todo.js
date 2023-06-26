@@ -8,10 +8,25 @@ export default function Todo({ todo, completeControl }) {
 
   return (
     <>
-      <div className="todo--todos" onClick={handleShow}>
+      <div
+        className="
+        flex
+        flex-row
+        justify-between
+        items-center
+        px-3
+        w-full
+        bg-neutral-50
+        rounded-lg
+        border-none
+        opacity-90
+        hover:opacity-80
+      "
+        onClick={handleShow}
+      >
         <button
           type="checkbox"
-          className="todo--completebtn"
+          className="w-5 h-5 text-xs rounded-full border-[1px] border-neutral-700"
           onClick={() => {
             toggleTodo(todo._id);
           }}
@@ -31,7 +46,7 @@ export default function Todo({ todo, completeControl }) {
         </button>
 
         <span
-          className="todo--text"
+          className="px-3 py-2"
           style={
             todo.complete
               ? { textDecoration: "line-through" }
@@ -42,7 +57,7 @@ export default function Todo({ todo, completeControl }) {
         </span>
 
         <button
-          className="todo--important"
+          className="border-none px-1"
           type="checkbox"
           onClick={() => {
             importantTodos(todo._id);

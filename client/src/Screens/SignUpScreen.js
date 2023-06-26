@@ -31,104 +31,101 @@ export default function SignUpScreen() {
   }, [formData]);
 
   return (
-    <Container className="signup-screen">
-      <Row className="justify-content-center">
-        <Col xs={12} md={6}>
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              registerUser(formData);
-              if (user !== null) navigate("/signin");
-            }}
-          >
-            <Form.Group
-              className="mb-3 mt-4 text-light"
-              controlId="formBasicEmail"
+    <div className="flex flex-col justify-center items-center w-full h-full">
+      <div
+        className="
+        flex 
+        flex-col 
+        items-center 
+        justify-center 
+        rounded-3xl
+        bg-gradient-to-b 
+        from-[#00adb5]
+        to-[#222831]
+        w-[400px] 
+        h-auto
+        py-10
+      "
+      >
+        <Form
+          className="w-3/4"
+          onSubmit={(e) => {
+            e.preventDefault();
+            registerUser(formData);
+            if (user !== null) navigate("/signin");
+          }}
+        >
+          <Form.Group className="text-white py-2" controlId="formBasicEmail">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control
+              onChange={(e) =>
+                setFormData({ ...formData, fullname: e.target.value })
+              }
+              type="text"
+              placeholder="Enter name"
+            />
+          </Form.Group>
+
+          <Form.Group className="text-white py-2" controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              type="email"
+              placeholder="Enter email"
+            />
+          </Form.Group>
+
+          <Form.Group className="text-white py-2" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Group>
+
+          <Form.Group className="text-white py-2" controlId="formBasicPassword">
+            <Form.Label>Password Again</Form.Label>
+            <Form.Control type="password" placeholder="Enter password again" />
+          </Form.Group>
+
+          <Form.Group className="text-white py-2" controlId="formBasicPassword">
+            <Form.Label>Phone number</Form.Label>
+            <Form.Control
+              onChange={(e) =>
+                setFormData({ ...formData, phoneNumber: e.target.value })
+              }
+              type="text"
+              placeholder="Phone number"
+            />
+          </Form.Group>
+
+          <Form.Group className="d-grid">
+            <Button
+              disabled={disabled}
+              type="submit"
+              variant="primary"
+              size="lg"
+              className="border-none mt-4"
+              style={{
+                backgroundColor: "#AC4425",
+              }}
             >
-              <Form.Label>Full Name</Form.Label>
-              <Form.Control
-                onChange={(e) =>
-                  setFormData({ ...formData, fullname: e.target.value })
-                }
-                type="text"
-                placeholder="Enter name"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3 text-light" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                type="email"
-                placeholder="Enter email"
-              />
-            </Form.Group>
-
-            <Form.Group
-              className="mb-3 text-light"
-              controlId="formBasicPassword"
-            >
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-                type="password"
-                placeholder="Password"
-              />
-            </Form.Group>
-
-            <Form.Group
-              className="mb-3 text-light"
-              controlId="formBasicPassword"
-            >
-              <Form.Label>Password Again</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter password again"
-              />
-            </Form.Group>
-
-            <Form.Group
-              className="mb-3 text-light"
-              controlId="formBasicPassword"
-            >
-              <Form.Label>Phone number</Form.Label>
-              <Form.Control
-                onChange={(e) =>
-                  setFormData({ ...formData, phoneNumber: e.target.value })
-                }
-                type="text"
-                placeholder="Phone number"
-              />
-            </Form.Group>
-
-            <Form.Group className="d-grid">
-              <Button
-                disabled={disabled}
-                type="submit"
-                variant="primary"
-                size="lg"
-                style={{
-                  backgroundColor: "#AC4425",
-                  border: "none",
-                  marginTop: "15px",
-                }}
-              >
-                Sign Up
-              </Button>
-              <Form.Text className="text-center text-light mt-2">
-                Do you have an Account ?
-                <Link to="/" className="little-signin">
-                  Sign In
-                </Link>
-              </Form.Text>
-            </Form.Group>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+              Sign Up
+            </Button>
+            <Form.Text className="text-center text-white py-2">
+              Do you have an Account ?
+              <Link to="/" className="ms-2 text-white">
+                Sign In
+              </Link>
+            </Form.Text>
+          </Form.Group>
+        </Form>
+      </div>
+    </div>
   );
 }
