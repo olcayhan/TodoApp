@@ -1,19 +1,19 @@
 // import needed library
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AuthScreen from "./Screens/AuthScreen";
-import SignUpScreen from "./Screens/SignUpScreen";
-import TodoList from "./Screens/TodoList";
-import Important from "./Screens/Important";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import TodoList from "./pages/TodoList";
+import Important from "./pages/Important";
 
 export default function App() {
   return (
     <Router>
       <main className="h-screen">
         <Routes>
-          <Route path="/" element={<AuthScreen />} />
-          <Route path="/signup" element={<SignUpScreen />} />,
-          <Route path="/home" element={<TodoList />} />
+          <Route path="/" element={<TodoList />} />
           <Route path="/important" element={<Important />} />
+          <Route path="/auth" element={<Login />} />
+          <Route path="/register" element={<Register />} />,
         </Routes>
       </main>
     </Router>

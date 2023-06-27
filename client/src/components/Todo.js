@@ -1,18 +1,19 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import axios from "axios";
 import useTodos from "../hooks/useTodos";
 import useUser from "../hooks/useUser";
 
 export default function Todo({ todo, completeControl }) {
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
   const { data: user } = useUser();
   const { mutate: mutatedTodos } = useTodos(user?._id);
 
   const toggleTodo = useCallback(
     async (id) => {
       try {
-        await axios.post("/todos/toggle", { id: id });
+        await axios.post(
+          "https://todoapp-backend-rlvk.onrender.com/todos/toggle",
+          { id: id }
+        );
 
         mutatedTodos();
       } catch (error) {
@@ -26,7 +27,10 @@ export default function Todo({ todo, completeControl }) {
   const importantTodo = useCallback(
     async (id) => {
       try {
-        await axios.post("/todos/important", { id: id });
+        await axios.post(
+          "https://todoapp-backend-rlvk.onrender.com/todos/important",
+          { id: id }
+        );
 
         mutatedTodos();
       } catch (error) {
@@ -53,7 +57,6 @@ export default function Todo({ todo, completeControl }) {
         opacity-90
         hover:opacity-80
       "
-        onClick={handleShow}
       >
         <button
           type="checkbox"

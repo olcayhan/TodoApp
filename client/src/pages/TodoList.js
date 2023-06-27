@@ -1,51 +1,112 @@
-import React, { useRef, useState } from "react";
-import StartImport from "../components/StartImport";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import Todo from "../components/Todo";
-import { useTodo } from "../contexts/TodoContext";
+import StartScreen from "../components/StartScreen";
 import Sidebar from "../components/Sidebar";
+import useTodos from "../hooks/useTodos";
+import useUser from "../hooks/useUser";
+import Spinner from "../components/Spinner";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default function Important() {
-  const { todos, addNewImportantTodos } = useTodo();
+export default function TodoList() {
   const todoNameRef = useRef();
+  const { data: user, isLoading } = useUser();
+  const {
+    data: todos,
+    isLoading: isLoading2,
+    mutate: mutateTodos,
+  } = useTodos(user?._id);
+  const navigate = useNavigate();
 
-  let importants = todos.filter((todos) => todos.important === true);
-  let lengthOfCompleteTodo = importants.filter(
-    (todo) => todo.complete === true
+  useEffect(() => {
+    if (!isLoading && user === undefined) navigate("/auth");
+  }, [navigate, isLoading, user]);
+
+  const addTodo = useCallback(
+    async (name) => {
+      try {
+        await axios.post(
+          "https://todoapp-backend-rlvk.onrender.com/todos/add",
+          {
+            name,
+            important: false,
+            complete: false,
+            userID: user?._id,
+          }
+        );
+
+        mutateTodos();
+      } catch (error) {
+        console.log(error);
+        console.error("Something went wrong");
+      }
+    },
+    [mutateTodos, user?._id]
   );
+
+  const deleteTodo = useCallback(async () => {
+    try {
+      await axios.post(
+        "https://todoapp-backend-rlvk.onrender.com/todos/delete",
+        { id: user?._id }
+      );
+
+      mutateTodos();
+    } catch (error) {
+      console.log(error);
+      console.error("Something went wrong");
+    }
+  }, [mutateTodos, user?._id]);
+
+  let lengthOfCompleteTodo = todos?.filter((todo) => todo.complete === true);
 
   // complete control for todo list
   const [completeControl, setCompleteControl] = useState(true);
+
+  // sorting of todo list for important
+  todos?.sort(function (x, y) {
+    return x.important === y.important ? 0 : x.important ? -1 : 1;
+  });
+
+  if (isLoading || isLoading2) {
+    return <Spinner />;
+  }
 
   return (
     <div className="grid grid-cols-12 gap-4 h-full w-full">
       <Sidebar />
       <div
         className={`
-        ${todos.length !== 0 && "overflow-auto"}
-        col-span-12 
-        xl:col-span-10
-        w-full
-        h-3/4
-        px-3
+        ${todos?.length !== 0 && "overflow-auto"}
+       col-span-12 
+       xl:col-span-10
+       w-full
+       h-3/4
+       px-3
        `}
       >
-        {importants.length === 0 && (
+        {todos?.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full">
-            <StartImport />
+            <StartScreen />
           </div>
         )}
         <div className="flex flex-col justify-center items-center xl:w-3/4 gap-1 py-14">
-          {importants.length !== 0 &&
-            todos.map((todo, key) => {
+          {todos?.length !== 0 &&
+            todos?.map((todo, key) => {
               return (
-                !todo.complete &&
-                todo.important && <Todo key={key} todo={todo} />
+                !todo.complete && (
+                  <Todo
+                    todo={todo}
+                    key={key}
+                    completeControl={completeControl}
+                  />
+                )
               );
             })}
         </div>
 
         <div className="mt-2">
-          {lengthOfCompleteTodo.length !== 0 && (
+          {lengthOfCompleteTodo?.length !== 0 && (
             <button
               className="flex flex-row items-center justify-center gap-3 px-2 bg-neutral-50 border-none rounded-md opacity-70 py-1 my-2 hover:opacity-90 transition"
               onClick={() => {
@@ -68,7 +129,7 @@ export default function Important() {
                 }
               ></i>
               Completed
-              <span>{lengthOfCompleteTodo.length}</span>
+              <span>{lengthOfCompleteTodo?.length}</span>
             </button>
           )}
 
@@ -80,11 +141,10 @@ export default function Important() {
                 : { visibility: "hidden" }
             }
           >
-            {lengthOfCompleteTodo.length !== 0 &&
-              todos.map((item, key) => {
+            {lengthOfCompleteTodo?.length !== 0 &&
+              todos?.map((item, key) => {
                 return (
-                  item.complete &&
-                  item.important && (
+                  item.complete && (
                     <Todo
                       todo={item}
                       key={key}
@@ -122,32 +182,45 @@ export default function Important() {
               border-[2px]
               border-slate-950
               rounded-full
-              px-2"
+              px-2
+            "
             onClick={() => {
-              if (todoNameRef.current.value !== "")
-                addNewImportantTodos(todoNameRef.current.value);
+              if (todoNameRef?.current.value !== "")
+                addTodo(todoNameRef?.current.value);
 
               todoNameRef.current.value = "";
             }}
           ></button>
 
           <input
-            className=" 
+            className="
               border-none
               outline-none
               w-full
-              "
+            "
             ref={todoNameRef}
             type="text"
             placeholder="Add a task"
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 if (todoNameRef.current.value !== "")
-                  addNewImportantTodos(todoNameRef.current.value);
+                  addTodo(todoNameRef.current.value);
                 todoNameRef.current.value = "";
               }
             }}
           />
+
+          <button
+            className="
+            text-[#b73e3e]
+              text-xl
+              border-none
+              px-2
+              "
+            onClick={() => deleteTodo()}
+          >
+            <i className="fa-sharp fa-solid fa-trash"></i>
+          </button>
         </div>
       </div>
     </div>

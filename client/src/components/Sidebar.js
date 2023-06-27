@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { useTodo } from "../contexts/TodoContext";
 import { useState } from "react";
 import useUser from "../hooks/useUser";
+import { Spinner } from "react-bootstrap";
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const { signin, setSignin } = useTodo();
   const [isSidebar, setSidebar] = useState(false);
-  const { data: user } = useUser();
+  const { data: user, isLoading } = useUser();
+  console.log(user);
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -106,9 +109,8 @@ export default function Sidebar() {
         </div>
 
         <div>
-          {signin ? (
-            <button
-              className="
+          <button
+            className="
               w-full
               bg-slate-500
               text-xl
@@ -117,34 +119,14 @@ export default function Sidebar() {
               border-none
               hover:opacity-70
             "
-              onClick={(e) => {
-                setSignin(false);
-                localStorage.removeItem("userID");
-                localStorage.removeItem("user");
-                navigate("/");
-              }}
-            >
-              {" "}
-              Sign Out
-            </button>
-          ) : (
-            <button
-              className="
-            w-full
-            bg-slate-500
-            text-xl
-            text-neutral-50
-            py-3
-            border-none
-            hover:opacity-70
-           "
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Sign In
-            </button>
-          )}
+            onClick={(e) => {
+              localStorage.removeItem("userID");
+              localStorage.removeItem("user");
+              navigate("/");
+            }}
+          >
+            Sign Out
+          </button>
         </div>
       </div>
 
@@ -238,9 +220,8 @@ export default function Sidebar() {
           </div>
 
           <div>
-            {signin ? (
-              <button
-                className="
+            <button
+              className="
               w-full
               bg-slate-500
               text-xl
@@ -249,34 +230,14 @@ export default function Sidebar() {
               border-none
               hover:opacity-70
             "
-                onClick={(e) => {
-                  setSignin(false);
-                  localStorage.removeItem("userID");
-                  localStorage.removeItem("user");
-                  navigate("/");
-                }}
-              >
-                {" "}
-                Sign Out
-              </button>
-            ) : (
-              <button
-                className="
-            w-full
-            bg-slate-500
-            text-xl
-            text-neutral-50
-            py-3
-            border-none
-            hover:opacity-70
-           "
-                onClick={() => {
-                  navigate("/");
-                }}
-              >
-                Sign In
-              </button>
-            )}
+              onClick={(e) => {
+                localStorage.removeItem("userID");
+                localStorage.removeItem("user");
+                navigate("/auth");
+              }}
+            >
+              Sign Out
+            </button>
           </div>
         </div>
       </div>

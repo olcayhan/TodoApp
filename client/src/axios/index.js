@@ -19,21 +19,3 @@ export const logintoDB = async (formData) => {
 export const registertoDB = async (formData) => {
   return await HTTP.post("/users/register", formData);
 };
-
-// setting todo objects in the database
-export const addTodotoDB = async (formData) => {
-  return await HTTP.post("/todos/add", formData);
-};
-
-// getting todo objects in the database
-export const toggleTodotoDB = async (id) => {
-  return await HTTP.post("/todos/toggle", { id });
-};
-
-export const importantTodotoDB = async (id) => {
-  return await HTTP.post("/todos/important", { id });
-};
-
-export const deleteTodotoDB = async (id) => {
-  return await HTTP.post("/todos/delete", { id });
-};

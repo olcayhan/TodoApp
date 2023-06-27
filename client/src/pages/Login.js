@@ -1,21 +1,47 @@
 // import needed library and routers
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useCallback, useEffect, useState } from "react";
+import { Form, Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useTodo } from "../contexts/TodoContext";
 import { useNavigate } from "react-router-dom";
+import useUser from "../hooks/useUser";
+import axios from "axios";
 
-export default function AuthScreen() {
+export default function Login() {
   // navigate to screen
-  const { loginUser, signin } = useTodo();
+
+  const { data: user, isLoading } = useUser();
   const navigate = useNavigate();
 
-  signin && navigate("/home");
-  //setting form
+  useEffect(() => {
+    if (!isLoading && user !== undefined) navigate("/");
+  }, [navigate, user, isLoading]);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const handleLogin = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const login = await axios.post(
+          "https://todoapp-backend-rlvk.onrender.com/users/login",
+          formData
+        );
+        localStorage.setItem("userID", login.data.user._id);
+        navigate("/");
+      } catch (error) {
+        console.error("Something went wrong");
+      }
+    },
+    [formData, navigate]
+  );
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="flex flex-col justify-center items-center w-full h-full">
       <div
@@ -33,13 +59,7 @@ export default function AuthScreen() {
         py-10
       "
       >
-        <Form
-          className="w-3/4"
-          onSubmit={(e) => {
-            e.preventDefault();
-            loginUser(formData);
-          }}
-        >
+        <Form className="w-3/4" onSubmit={handleLogin}>
           <Form.Group className="text-white py-2" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -73,7 +93,7 @@ export default function AuthScreen() {
             </Button>
             <Form.Text className="text-white text-center py-2">
               Don't have an Account ?
-              <Link to="/signup">
+              <Link to="/register">
                 <span className="text-white ms-2 ">Sign Up</span>
               </Link>
             </Form.Text>

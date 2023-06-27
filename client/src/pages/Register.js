@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Row, Col, Form, Button, Container } from "react-bootstrap";
+import React, { useCallback, useEffect, useState } from "react";
+import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useTodo } from "../contexts/TodoContext";
 import { useNavigate } from "react-router-dom";
+import useUser from "../hooks/useUser";
+import axios from "axios";
 
-export default function SignUpScreen() {
-  const { registerUser, user } = useTodo();
+export default function Register() {
   const navigate = useNavigate();
 
+  const { data: user, isLoading } = useUser();
+
+  const [disabled, setDisabled] = useState(true);
   const [formData, setFormData] = useState({
     fullname: "",
     password: "",
@@ -15,7 +19,9 @@ export default function SignUpScreen() {
     email: "",
   });
 
-  const [disabled, setDisabled] = useState(true);
+  useEffect(() => {
+    if (!isLoading && user !== undefined) navigate("/");
+  }, [navigate, user, isLoading]);
 
   useEffect(() => {
     if (
@@ -29,6 +35,24 @@ export default function SignUpScreen() {
       setDisabled(true);
     }
   }, [formData]);
+
+  const handleRegister = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const register = await axios.post(
+          "https://todoapp-backend-rlvk.onrender.com/users/register",
+          formData
+        );
+        console.log(register);
+        localStorage.setItem("userID", register.data._id);
+        navigate("/");
+      } catch (error) {
+        console.error("Something went wrong");
+      }
+    },
+    [formData, navigate]
+  );
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-full">
@@ -47,14 +71,7 @@ export default function SignUpScreen() {
         py-10
       "
       >
-        <Form
-          className="w-3/4"
-          onSubmit={(e) => {
-            e.preventDefault();
-            registerUser(formData);
-            if (user !== null) navigate("/signin");
-          }}
-        >
+        <Form className="w-3/4" onSubmit={handleRegister}>
           <Form.Group className="text-white py-2" controlId="formBasicEmail">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
