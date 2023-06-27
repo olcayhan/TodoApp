@@ -1,17 +1,53 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Todo from "../components/Todo";
 import StartScreen from "../components/StartScreen";
-import { useTodo } from "../contexts/TodoContext";
 import Sidebar from "../components/Sidebar";
 import useTodos from "../hooks/useTodos";
 import useUser from "../hooks/useUser";
+import Spinner from "../components/Spinner";
+import axios from "axios";
 
 export default function TodoList() {
   const todoNameRef = useRef();
-  const { addNewTodos, deleteTodos } = useTodo();
-  const { data: user } = useUser();
-  const { data: todos, isLoading } = useTodos(user?._id);
-  console.log(todos);
+  const { data: user, isLoading, mutate: mutateUser } = useUser();
+  const {
+    data: todos,
+    isLoading: isLoading2,
+    mutate: mutateTodos,
+  } = useTodos(user?._id);
+
+  const addTodo = useCallback(
+    async (name) => {
+      try {
+        await axios.post("/todos/add", {
+          name,
+          important: false,
+          complete: false,
+          userID: user._id,
+        });
+
+        mutateTodos();
+      } catch (error) {
+        console.log(error);
+        console.error("Something went wrong");
+      }
+    },
+    [mutateTodos, user?._id]
+  );
+
+  const deleteTodo = useCallback(async () => {
+    try {
+      await axios.post("/todos/delete", { id: user._id });
+
+      mutateTodos();
+    } catch (error) {
+      console.log(error);
+      console.error("Something went wrong");
+    }
+  }, [mutateTodos, user?._id]);
+
+  
+
   let lengthOfCompleteTodo = todos?.filter((todo) => todo.complete === true);
 
   // complete control for todo list
@@ -22,8 +58,8 @@ export default function TodoList() {
     return x.important === y.important ? 0 : x.important ? -1 : 1;
   });
 
-  if (isLoading) {
-    return <div>Loading....</div>;
+  if (isLoading || isLoading2) {
+    return <Spinner />;
   }
 
   return (
@@ -140,7 +176,7 @@ export default function TodoList() {
             "
             onClick={() => {
               if (todoNameRef?.current.value !== "")
-                addNewTodos(todoNameRef?.current.value);
+                addTodo(todoNameRef?.current.value);
 
               todoNameRef.current.value = "";
             }}
@@ -158,7 +194,7 @@ export default function TodoList() {
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 if (todoNameRef.current.value !== "")
-                  addNewTodos(todoNameRef.current.value);
+                  addTodo(todoNameRef.current.value);
                 todoNameRef.current.value = "";
               }
             }}
@@ -167,11 +203,11 @@ export default function TodoList() {
           <button
             className="
             text-[#b73e3e]
-            text-xl
-            border-none
-            px-2
-          "
-            onClick={() => deleteTodos()}
+              text-xl
+              border-none
+              px-2
+              "
+            onClick={() => deleteTodo()}
           >
             <i className="fa-sharp fa-solid fa-trash"></i>
           </button>

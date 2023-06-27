@@ -4,7 +4,7 @@ import fetcher from "../libs/fetcher";
 const useTodos = (userId) => {
   const { data, error, isLoading, mutate } = useSWR(
     userId
-      ? `https://todoapp-backend-rlvk.onrender.com/todos/get/${userId}`
+      ? `/todos/get/${userId}`
       : null,
     fetcher
   );

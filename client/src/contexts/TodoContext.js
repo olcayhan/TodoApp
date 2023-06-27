@@ -1,12 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  addTodotoDB,
-  logintoDB,
-  registertoDB,
-  toggleTodotoDB,
-  deleteTodotoDB,
-  importantTodotoDB,
-} from "../axios";
+import { addTodotoDB, logintoDB, registertoDB } from "../axios";
 
 const TodoContext = React.createContext();
 
@@ -48,45 +41,8 @@ export const TodoProvider = ({ children }) => {
       });
   }
 
-  // ========================== TODOS ================================
-
-
-  function addNewTodos(name) {
-    addTodotoDB({ name, important: false, complete: false, userID: userIDtoDB })
-      .then((res) => setRender(true))
-      .catch((err) => {
-        console.log(err);
-      });
-  }
   function addNewImportantTodos(name) {
     addTodotoDB({ name, important: true, complete: false, userID: userIDtoDB })
-      .then((res) => setRender(true))
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  function toggleTodo(id) {
-    toggleTodotoDB(id)
-      .then((res) => {
-        setRender(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  function importantTodos(id) {
-    importantTodotoDB(id)
-      .then((res) => {
-        setRender(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  function deleteTodos() {
-    deleteTodotoDB(userIDtoDB)
       .then((res) => setRender(true))
       .catch((err) => {
         console.log(err);
@@ -99,10 +55,6 @@ export const TodoProvider = ({ children }) => {
         loginUser,
         addNewImportantTodos,
         registerUser,
-        addNewTodos,
-        toggleTodo,
-        importantTodos,
-        deleteTodos,
         setSignin,
         signin,
       }}
