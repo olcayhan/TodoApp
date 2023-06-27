@@ -48,4 +48,15 @@ router.post("/signin", async (req, res) => {
   }
 });
 
+router.get("/get/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findOne({ id: id });
+    return res.status(201).json(user);
+  } catch (err) {
+    console.log(err);
+    return res.json({ message: "user failed" });
+  }
+});
+
 module.exports = router;

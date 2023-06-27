@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useTodo } from "../contexts/TodoContext";
 import { useState } from "react";
+import useUser from "../hooks/useUser";
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const { signin, setSignin, user } = useTodo();
+  const { signin, setSignin } = useTodo();
   const [isSidebar, setSidebar] = useState(false);
-  console.log(isSidebar);
+  const { data: user } = useUser();
+
   return (
     <>
       <div className="absolute z-50 right-10 top-4">
@@ -57,6 +59,10 @@ export default function Sidebar() {
           >
             <div
               className="
+              flex
+              flex-col
+              items-center
+              justify-center
               bg-dark
             text-slate-50
               text-center
@@ -84,7 +90,7 @@ export default function Sidebar() {
               href="/home"
             >
               <i className="fa fa-home text-[#8d9eff]"></i>
-              <span className="px-2">Tasks</span>
+              <span className="px-2 text-slate-50">Tasks</span>
             </a>
           </div>
 
@@ -94,7 +100,7 @@ export default function Sidebar() {
               href="/important"
             >
               <i className="fa-regular fa-star text-[crimson]"></i>
-              <span className="px-2">Important</span>
+              <span className="px-2 text-slate-50">Important</span>
             </a>
           </div>
         </div>
@@ -185,6 +191,10 @@ export default function Sidebar() {
             >
               <div
                 className="
+                  flex
+                  flex-col
+                  items-center
+                  justify-center
                   bg-slate-900
                 text-slate-50
                   text-center
@@ -212,7 +222,7 @@ export default function Sidebar() {
                 href="/home"
               >
                 <i className="fa fa-home text-[#8d9eff]"></i>
-                <span className="px-2">Tasks</span>
+                <span className="px-2 text-slate-50">Tasks</span>
               </a>
             </div>
 
@@ -222,7 +232,7 @@ export default function Sidebar() {
                 href="/important"
               >
                 <i className="fa-regular fa-star text-[crimson]"></i>
-                <span className="px-2">Important</span>
+                <span className="px-2 text-slate-50">Important</span>
               </a>
             </div>
           </div>
