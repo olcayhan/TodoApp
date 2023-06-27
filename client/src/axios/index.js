@@ -11,38 +11,29 @@ const HTTP = axios.create({
 // getting user objects in the database for sign user
 
 export const logintoDB = async (formData) => {
-  return await HTTP.post("/users/signin", formData);
+  return await HTTP.post("/users/login", formData);
 };
 
 // setting user objects in the database for register user
 
 export const registertoDB = async (formData) => {
-  return await HTTP.post("/users/signup", formData);
-};
-
-export const getUsertoDB = async (formData) => {
-  return await HTTP.post("/users/signup", formData);
+  return await HTTP.post("/users/register", formData);
 };
 
 // setting todo objects in the database
 export const addTodotoDB = async (formData) => {
-  return await HTTP.post("/todos/addtodo", formData);
-};
-
-// getting todo objects in the database
-export const getTodotoDB = async (id) => {
-  return await HTTP.post("/todos/gettodo", { id });
+  return await HTTP.post("/todos/add", formData);
 };
 
 // getting todo objects in the database
 export const toggleTodotoDB = async (id) => {
-  return await HTTP.post("/todos/toggletodo", { id });
+  return await HTTP.post("/todos/toggle", { id });
 };
 
 export const importantTodotoDB = async (id) => {
-  return await HTTP.post("/todos/importanttodo", { id });
+  return await HTTP.post("/todos/important", { id });
 };
 
 export const deleteTodotoDB = async (id) => {
-  return await HTTP.post("/todos/deletetodo", { id });
+  return await HTTP.post("/todos/delete", { id });
 };

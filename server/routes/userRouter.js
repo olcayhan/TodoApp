@@ -5,7 +5,7 @@ const router = express.Router();
 
 /* =============== ADD USER ==================== */
 
-router.post("/signup", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     console.log(req.body);
     const { fullname, password, phoneNumber, email } = req.body;
@@ -30,7 +30,7 @@ router.post("/signup", async (req, res) => {
 
 /* =============== AUTH USER ==================== */
 
-router.post("/signin", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     console.log(req.body);
 

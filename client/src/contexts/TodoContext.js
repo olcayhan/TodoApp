@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   addTodotoDB,
-  getTodotoDB,
   logintoDB,
   registertoDB,
   toggleTodotoDB,
@@ -18,13 +17,11 @@ export function useTodo() {
 export const TodoProvider = ({ children }) => {
   const [signin, setSignin] = useState(localStorage.getItem("user"));
   const [userIDtoDB, setUserIDtoDB] = useState(localStorage.getItem("userID"));
-  const [todos, setTodos] = useState([]);
   const [isRender, setRender] = useState(true);
 
   // setting user to take data
   useEffect(() => {
     if (!signin) setUserIDtoDB();
-    getTodos();
     setRender(false);
   }, [isRender]);
 
@@ -53,15 +50,7 @@ export const TodoProvider = ({ children }) => {
 
   // ========================== TODOS ================================
 
-  function getTodos() {
-    getTodotoDB(userIDtoDB)
-      .then((res) => {
-        setTodos([...res.data.other]);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }
+
   function addNewTodos(name) {
     addTodotoDB({ name, important: false, complete: false, userID: userIDtoDB })
       .then((res) => setRender(true))
@@ -115,7 +104,6 @@ export const TodoProvider = ({ children }) => {
         importantTodos,
         deleteTodos,
         setSignin,
-        todos,
         signin,
       }}
     >

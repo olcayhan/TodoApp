@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* =========================== ADD TODO ======================== */
 
-router.post("/addtodo", async (req, res) => {
+router.post("/add", async (req, res) => {
   try {
     console.log(req.body);
     const { name, important, complete, userID } = req.body;
@@ -24,9 +24,9 @@ router.post("/addtodo", async (req, res) => {
 
 /* =========================== GET TODO ======================== */
 
-router.post("/gettodo", async (req, res) => {
+router.get("/get/:id", async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const other = await Todo.find({ userID: id });
     return res.status(200).json({ other });
   } catch (err) {
@@ -35,7 +35,7 @@ router.post("/gettodo", async (req, res) => {
 });
 
 /* ===================== TOGGLE TODO ================== */
-router.post("/toggletodo", async (req, res) => {
+router.post("/toggle", async (req, res) => {
   try {
     const { id } = req.body;
 
@@ -56,7 +56,7 @@ router.post("/toggletodo", async (req, res) => {
 });
 
 /* ===================== important TODO ================== */
-router.post("/importanttodo", async (req, res) => {
+router.post("/important", async (req, res) => {
   try {
     const { id } = req.body;
 
@@ -77,7 +77,7 @@ router.post("/importanttodo", async (req, res) => {
 
 /* =========================== DELETE TODO ======================== */
 
-router.post("/deletetodo", async (req, res) => {
+router.post("/delete", async (req, res) => {
   try {
     const { id } = req.body;
 
