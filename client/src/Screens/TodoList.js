@@ -23,7 +23,7 @@ export default function TodoList() {
           name,
           important: false,
           complete: false,
-          userID: user._id,
+          userID: user?._id,
         });
 
         mutateTodos();
@@ -37,7 +37,7 @@ export default function TodoList() {
 
   const deleteTodo = useCallback(async () => {
     try {
-      await axios.post("/todos/delete", { id: user._id });
+      await axios.post("/todos/delete", { id: user?._id });
 
       mutateTodos();
     } catch (error) {
