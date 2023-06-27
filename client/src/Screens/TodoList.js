@@ -19,12 +19,15 @@ export default function TodoList() {
   const addTodo = useCallback(
     async (name) => {
       try {
-        await axios.post("/todos/add", {
-          name,
-          important: false,
-          complete: false,
-          userID: user?._id,
-        });
+        await axios.post(
+          "https://todoapp-backend-rlvk.onrender.com/todos/add",
+          {
+            name,
+            important: false,
+            complete: false,
+            userID: user?._id,
+          }
+        );
 
         mutateTodos();
       } catch (error) {
@@ -37,7 +40,10 @@ export default function TodoList() {
 
   const deleteTodo = useCallback(async () => {
     try {
-      await axios.post("/todos/delete", { id: user?._id });
+      await axios.post(
+        "https://todoapp-backend-rlvk.onrender.com/todos/delete",
+        { id: user?._id }
+      );
 
       mutateTodos();
     } catch (error) {
@@ -45,8 +51,6 @@ export default function TodoList() {
       console.error("Something went wrong");
     }
   }, [mutateTodos, user?._id]);
-
-  
 
   let lengthOfCompleteTodo = todos?.filter((todo) => todo.complete === true);
 
