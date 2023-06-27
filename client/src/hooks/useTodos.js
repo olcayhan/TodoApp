@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import fetcher from "../libs/fetcher";
 
-const useUser = (userId) => {
+const useTodos = (userId) => {
   const { data, error, isLoading, mutate } = useSWR(
     userId
       ? `https://todoapp-backend-rlvk.onrender.com/todos/get/${userId}`
@@ -12,4 +12,4 @@ const useUser = (userId) => {
   return { data, error, isLoading, mutate };
 };
 
-export default useUser;
+export default useTodos;

@@ -28,7 +28,7 @@ router.get("/get/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const other = await Todo.find({ userID: id });
-    return res.status(200).json({ other });
+    return res.status(200).json(other);
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }
@@ -49,7 +49,7 @@ router.post("/toggle", async (req, res) => {
         },
       }
     );
-    return res.status(200).json({ other });
+    return res.status(200).json(other);
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }
@@ -69,7 +69,7 @@ router.post("/important", async (req, res) => {
         },
       }
     );
-    return res.status(200).json({ other });
+    return res.status(200).json(other);
   } catch (err) {
     return res.status(400).json({ message: err.message });
   }
