@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useUser from "../hooks/useUser";
 import { Spinner } from "react-bootstrap";
+import { toast } from "react-hot-toast";
 
 export default function Sidebar() {
   const navigate = useNavigate();
   const [isSidebar, setSidebar] = useState(false);
   const { data: user, isLoading } = useUser();
-  console.log(user);
   if (isLoading) {
     return <Spinner />;
   }
@@ -90,7 +90,7 @@ export default function Sidebar() {
           <div className="flex flex-row justify-start items-center w-full text-xl">
             <a
               className="w-full text-neutral-900 px-3 py-2 hover:opacity-80 hover:bg-slate-200"
-              href="/home"
+              href="/"
             >
               <i className="fa fa-home text-[#8d9eff]"></i>
               <span className="px-2 text-slate-50">Tasks</span>
@@ -120,9 +120,10 @@ export default function Sidebar() {
               hover:opacity-70
             "
             onClick={(e) => {
+              localStorage.removeItem("token");
               localStorage.removeItem("userID");
-              localStorage.removeItem("user");
-              navigate("/");
+              toast.success("Sign Out Successfully");
+              navigate("/auth");
             }}
           >
             Sign Out
@@ -201,7 +202,7 @@ export default function Sidebar() {
             <div className="flex flex-row justify-start items-center w-full text-xl">
               <a
                 className="w-full text-neutral-900 px-3 py-2 hover:opacity-80 hover:bg-slate-200"
-                href="/home"
+                href="/"
               >
                 <i className="fa fa-home text-[#8d9eff]"></i>
                 <span className="px-2 text-slate-50">Tasks</span>
@@ -231,8 +232,9 @@ export default function Sidebar() {
               hover:opacity-70
             "
               onClick={(e) => {
+                localStorage.removeItem("token");
                 localStorage.removeItem("userID");
-                localStorage.removeItem("user");
+                toast.success("Sign Out Successfully");
                 navigate("/auth");
               }}
             >

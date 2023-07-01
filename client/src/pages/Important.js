@@ -7,6 +7,7 @@ import useUser from "../hooks/useUser";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export default function Important() {
   const todoNameRef = useRef();
@@ -38,9 +39,10 @@ export default function Important() {
         );
 
         mutateTodos();
+
+        toast.success("Successfully added");
       } catch (error) {
-        console.log(error);
-        console.error("Something went wrong");
+        toast.error("Something went wrong");
       }
     },
     [mutateTodos, user?._id]

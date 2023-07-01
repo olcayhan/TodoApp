@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import axios from "axios";
 import useTodos from "../hooks/useTodos";
 import useUser from "../hooks/useUser";
+import { toast } from "react-hot-toast";
 
 export default function Todo({ todo, completeControl }) {
   const { data: user } = useUser();
@@ -16,9 +17,9 @@ export default function Todo({ todo, completeControl }) {
         );
 
         mutatedTodos();
+        toast.success("Updated");
       } catch (error) {
-        console.log(error);
-        console.error("Something went wrong");
+        toast.error("Something went wrong");
       }
     },
     [mutatedTodos]
@@ -33,9 +34,9 @@ export default function Todo({ todo, completeControl }) {
         );
 
         mutatedTodos();
+        toast.success("Updated");
       } catch (error) {
-        console.log(error);
-        console.error("Something went wrong");
+        toast.error("Something went wrong");
       }
     },
     [mutatedTodos]

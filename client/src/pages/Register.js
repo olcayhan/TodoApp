@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useTodo } from "../contexts/TodoContext";
 import { useNavigate } from "react-router-dom";
 import useUser from "../hooks/useUser";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -44,11 +44,10 @@ export default function Register() {
           "https://todoapp-backend-rlvk.onrender.com/users/register",
           formData
         );
-        console.log(register);
-        localStorage.setItem("userID", register.data._id);
-        navigate("/");
+        toast.success("Register successfully");
+        navigate("/auth");
       } catch (error) {
-        console.error("Something went wrong");
+        toast.error(error.response.data.message);
       }
     },
     [formData, navigate]
@@ -72,7 +71,7 @@ export default function Register() {
       "
       >
         <Form className="w-3/4" onSubmit={handleRegister}>
-          <Form.Group className="text-white py-2" controlId="formBasicEmail">
+          <Form.Group className="text-white py-2" controlId="formBasicName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
               onChange={(e) =>
@@ -105,12 +104,7 @@ export default function Register() {
             />
           </Form.Group>
 
-          <Form.Group className="text-white py-2" controlId="formBasicPassword">
-            <Form.Label>Password Again</Form.Label>
-            <Form.Control type="password" placeholder="Enter password again" />
-          </Form.Group>
-
-          <Form.Group className="text-white py-2" controlId="formBasicPassword">
+          <Form.Group className="text-white py-2" controlId="formBasicPhone">
             <Form.Label>Phone number</Form.Label>
             <Form.Control
               onChange={(e) =>

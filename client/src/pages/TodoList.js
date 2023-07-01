@@ -7,6 +7,7 @@ import useUser from "../hooks/useUser";
 import Spinner from "../components/Spinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 export default function TodoList() {
   const todoNameRef = useRef();
@@ -36,9 +37,9 @@ export default function TodoList() {
         );
 
         mutateTodos();
+        toast.success("Successfully added");
       } catch (error) {
-        console.log(error);
-        console.error("Something went wrong");
+        toast.error("Something went wrong");
       }
     },
     [mutateTodos, user?._id]
@@ -52,9 +53,9 @@ export default function TodoList() {
       );
 
       mutateTodos();
+      toast.success("Successfully deleted");
     } catch (error) {
-      console.log(error);
-      console.error("Something went wrong");
+      toast.error("Something went wrong");
     }
   }, [mutateTodos, user?._id]);
 

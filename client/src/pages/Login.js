@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useUser from "../hooks/useUser";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default function Login() {
   // navigate to screen
@@ -29,10 +30,12 @@ export default function Login() {
           "https://todoapp-backend-rlvk.onrender.com/users/login",
           formData
         );
+        localStorage.setItem("token", login.data.token);
         localStorage.setItem("userID", login.data.user._id);
+        toast.success("Login successful");
         navigate("/");
       } catch (error) {
-        console.error("Something went wrong");
+        toast.error(error.response.data.message);
       }
     },
     [formData, navigate]

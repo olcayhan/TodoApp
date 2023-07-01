@@ -24,5 +24,5 @@ app.listen(5000, () => {
       useUnifiedTopology: true,
     })
     .then(() => console.log("connected to db"))
-    .catch((err) => console.log(err));
+    .catch((err) => {});
 });

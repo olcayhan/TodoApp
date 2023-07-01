@@ -1,5 +1,5 @@
 import React from "react";
-import { DotLoader, BeatLoader } from "react-spinners";
+import { BeatLoader } from "react-spinners";
 
 const Spinner = () => {
   return (
