@@ -27,7 +27,7 @@ export default function TodoList() {
     async (name) => {
       try {
         await axios.post(
-          "https://todoapp-backend-rlvk.onrender.com/todos/add",
+          "https://todo-app-o8uu.onrender.com/todos/add",
           {
             name,
             important: false,
@@ -48,7 +48,7 @@ export default function TodoList() {
   const deleteTodo = useCallback(async () => {
     try {
       await axios.post(
-        "https://todoapp-backend-rlvk.onrender.com/todos/delete",
+        "https://todo-app-o8uu.onrender.com/todos/delete",
         { id: user?._id }
       );
 

@@ -12,7 +12,7 @@ export default function Todo({ todo, completeControl }) {
     async (id) => {
       try {
         await axios.post(
-          "https://todoapp-backend-rlvk.onrender.com/todos/toggle",
+          "https://todo-app-o8uu.onrender.com/todos/toggle",
           { id: id }
         );
 
@@ -29,7 +29,7 @@ export default function Todo({ todo, completeControl }) {
     async (id) => {
       try {
         await axios.post(
-          "https://todoapp-backend-rlvk.onrender.com/todos/important",
+          "https://todo-app-o8uu.onrender.com/todos/important",
           { id: id }
         );
 

@@ -29,7 +29,7 @@ export default function Important() {
     async (name) => {
       try {
         await axios.post(
-          "https://todoapp-backend-rlvk.onrender.com/todos/add",
+          "https://todo-app-o8uu.onrender.com/todos/add",
           {
             name,
             important: true,

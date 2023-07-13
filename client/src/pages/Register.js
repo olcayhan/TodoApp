@@ -41,7 +41,7 @@ export default function Register() {
       e.preventDefault();
       try {
         const register = await axios.post(
-          "https://todoapp-backend-rlvk.onrender.com/users/register",
+          "https://todo-app-o8uu.onrender.com/users/register",
           formData
         );
         toast.success("Register successfully");
