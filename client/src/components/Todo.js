@@ -58,14 +58,15 @@ export default function Todo({ todo, completeControl }) {
         opacity-90
         hover:opacity-80
       "
-        onClick={() => {
+        onClick={(e) => {
           toggleBar(todo._id);
         }}
       >
         <button
           type="checkbox"
           className="w-5 h-5 text-xs rounded-full border-[1px] border-neutral-700 flex-shrink-0"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             toggleTodo(todo._id);
           }}
           style={
@@ -97,7 +98,8 @@ export default function Todo({ todo, completeControl }) {
         <button
           className="border-none px-1"
           type="checkbox"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             importantTodo(todo._id);
           }}
         >
