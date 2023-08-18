@@ -27,7 +27,7 @@ export default function Sidebar() {
             rounded-md
             cursor-pointer
             z-50
-            xl:hidden
+            md:hidden
           "
         >
           <i className="fa-solid fa-bars"></i>
@@ -37,12 +37,12 @@ export default function Sidebar() {
       <div
         className="
           hidden  
-          xl:flex
+          md:flex
           flex-col 
           justify-between 
-          col-span-2 
           bg-slate-700 
-          w-full
+          w-[20vw]
+          min-w-[300px]
           h-full 
           gap-3
           "
@@ -135,7 +135,7 @@ export default function Sidebar() {
       <div
         className={`
             block
-            xl:hidden
+            md:hidden
             fixed
             ${isSidebar ? "left-0" : "-left-full"}
             w-full
@@ -148,11 +148,10 @@ export default function Sidebar() {
       >
         <div
           className="
-          xl:hidden
+          md:hidden
           flex  
           flex-col 
           justify-between 
-          col-span-2 
           bg-slate-700 
           w-full
           h-full 

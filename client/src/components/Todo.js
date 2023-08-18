@@ -1,20 +1,21 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import axios from "axios";
 import useTodos from "../hooks/useTodos";
 import useUser from "../hooks/useUser";
 import { toast } from "react-hot-toast";
+import Rightbar from "./Rightbar";
+import { useBarContext } from "../context/BarContext";
 
 export default function Todo({ todo, completeControl }) {
   const { data: user } = useUser();
   const { mutate: mutatedTodos } = useTodos(user?._id);
-
+  const { toggleBar } = useBarContext();
   const toggleTodo = useCallback(
     async (id) => {
       try {
-        await axios.post(
-          "https://todo-app-o8uu.onrender.com/todos/toggle",
-          { id: id }
-        );
+        await axios.post("https://todo-app-o8uu.onrender.com/todos/toggle", {
+          id: id,
+        });
 
         mutatedTodos();
         toast.success("Updated");
@@ -28,10 +29,9 @@ export default function Todo({ todo, completeControl }) {
   const importantTodo = useCallback(
     async (id) => {
       try {
-        await axios.post(
-          "https://todo-app-o8uu.onrender.com/todos/important",
-          { id: id }
-        );
+        await axios.post("https://todo-app-o8uu.onrender.com/todos/important", {
+          id: id,
+        });
 
         mutatedTodos();
         toast.success("Updated");
@@ -58,10 +58,13 @@ export default function Todo({ todo, completeControl }) {
         opacity-90
         hover:opacity-80
       "
+        onClick={() => {
+          toggleBar(todo._id);
+        }}
       >
         <button
           type="checkbox"
-          className="w-5 h-5 text-xs rounded-full border-[1px] border-neutral-700"
+          className="w-5 h-5 text-xs rounded-full border-[1px] border-neutral-700 flex-shrink-0"
           onClick={() => {
             toggleTodo(todo._id);
           }}
@@ -105,6 +108,8 @@ export default function Todo({ todo, completeControl }) {
           )}
         </button>
       </div>
+
+      <Rightbar todo={todo} index={todo._id} />
     </>
   );
 }
