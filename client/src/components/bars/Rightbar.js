@@ -1,4 +1,4 @@
-import { useBarContext } from "../context/BarContext";
+import { useBarContext } from "../../context/BarContext";
 
 export default function Rightbar({ todo, index }) {
   const { activeIndex, toggleBar } = useBarContext();

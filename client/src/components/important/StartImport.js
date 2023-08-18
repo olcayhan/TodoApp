@@ -1,7 +1,7 @@
 import React from "react";
-import note from "../images/note.png";
+import imp from "../../images/imp.png";
 
-export default function StartScreen() {
+export default function StartImport() {
   return (
     <div
       className="
@@ -11,18 +11,18 @@ export default function StartScreen() {
       justify-center
       bg-gradient-to-b 
       from-[#293462]
-      to-[#31c6d4]
+      to-[#eb1d36]
       w-[240px]
       h-[240px]
       rounded-xl
-    "
+      "
     >
-      <img className="w-[120px]" src={note} alt="home" />
+      <img className="w-[120px]" src={imp} alt="home" />
       <h4 className="text-lg text-slate-50 font-bold text-center">
-        Focus on your day
+        Starring To Do's
       </h4>
       <p className="text-sm text-slate-50 text-center">
-        Get things done with Tasks
+        Try starring some tasks to see them here
       </p>
     </div>
   );

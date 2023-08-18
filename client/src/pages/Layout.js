@@ -1,16 +1,16 @@
 import React from "react";
-import Sidebar from "../components/Sidebar";
-import TodoList from "../components/TodoList";
-import Important from "../components/Important";
+import Sidebar from "../components/bars/Sidebar";
+import TodoList from "../components/home/TodoList";
+import Important from "../components/important/Important";
 import { BarProvider } from "../context/BarContext";
 
 export default function Layout() {
   const path = window.location.pathname;
   let pathway = null;
 
-  if (path == "/") {
+  if (path === "/") {
     pathway = <TodoList />;
-  } else if (path == "/important") {
+  } else if (path === "/important") {
     pathway = <Important />;
   }
 

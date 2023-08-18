@@ -1,11 +1,9 @@
 import useSWR from "swr";
 import fetcher from "../libs/fetcher";
-
+import config from "../env/config";
 const useTodos = (userId) => {
   const { data, error, isLoading, mutate } = useSWR(
-    userId
-      ? `https://todo-app-o8uu.onrender.com/todos/get/${userId}`
-      : null,
+    userId ? config.apiUrl + `/todos/get/` + userId : null,
     fetcher
   );
 

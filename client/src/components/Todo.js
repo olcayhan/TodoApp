@@ -3,22 +3,22 @@ import axios from "axios";
 import useTodos from "../hooks/useTodos";
 import useUser from "../hooks/useUser";
 import { toast } from "react-hot-toast";
-import Rightbar from "./Rightbar";
+import Rightbar from "./bars/Rightbar";
 import { useBarContext } from "../context/BarContext";
+import config from "../env/config";
 
 export default function Todo({ todo, completeControl }) {
+  const { toggleBar } = useBarContext();
+
   const { data: user } = useUser();
   const { mutate: mutatedTodos } = useTodos(user?._id);
-  const { toggleBar } = useBarContext();
+
   const toggleTodo = useCallback(
     async (id) => {
       try {
-        await axios.post("https://todo-app-o8uu.onrender.com/todos/toggle", {
-          id: id,
-        });
-
+        const url = new URL("/todos/toggle", config.apiUrl);
+        await axios.post(url, { id: id });
         mutatedTodos();
-        toast.success("Updated");
       } catch (error) {
         toast.error("Something went wrong");
       }
@@ -29,12 +29,9 @@ export default function Todo({ todo, completeControl }) {
   const importantTodo = useCallback(
     async (id) => {
       try {
-        await axios.post("https://todo-app-o8uu.onrender.com/todos/important", {
-          id: id,
-        });
-
+        const url = new URL("/todos/important", config.apiUrl);
+        await axios.post(url, { id: id });
         mutatedTodos();
-        toast.success("Updated");
       } catch (error) {
         toast.error("Something went wrong");
       }
@@ -58,28 +55,24 @@ export default function Todo({ todo, completeControl }) {
         opacity-90
         hover:opacity-80
       "
-        onClick={(e) => {
-          toggleBar(todo._id);
-        }}
+        onClick={() => toggleBar(todo._id)}
       >
         <button
           type="checkbox"
-          className="w-5 h-5 text-xs rounded-full border-[1px] border-neutral-700 flex-shrink-0"
+          className={`w-5 h-5 text-xs rounded-full border-[1px] border-neutral-700 flex-shrink-0 ${
+            todo.complete && completeControl
+              ? "bg-blue-600 text-white border-none"
+              : ""
+          }`}
           onClick={(e) => {
             e.stopPropagation();
             toggleTodo(todo._id);
           }}
-          style={
-            todo.complete && completeControl
-              ? { backgroundColor: "#748DA6", color: "white", border: "none" }
-              : {}
-          }
         >
           <i
-            className="fa fa-check"
-            style={
-              todo.complete && completeControl ? { visibility: "visible" } : {}
-            }
+            className={`fa fa-check ${
+              todo.complete && completeControl ? "visible" : ""
+            }`}
             aria-hidden="true"
           ></i>
         </button>
