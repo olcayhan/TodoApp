@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../components/bars/Sidebar";
 import TodoList from "../components/home/TodoList";
 import Important from "../components/important/Important";
 import { BarProvider } from "../context/BarContext";
+import useUser from "../hooks/useUser";
+import { useNavigate } from "react-router-dom";
+import useTodos from "../hooks/useTodos";
+import Spinner from "../components/Spinner";
 
 export default function Layout() {
   const path = window.location.pathname;
   let pathway = null;
+  const { data: user, isLoading } = useUser();
+  const { isLoading: isLoading2 } = useTodos(user?._id);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && user === undefined) navigate("/auth");
+  }, [navigate, isLoading, user]);
 
   if (path === "/") {
     pathway = <TodoList />;
   } else if (path === "/important") {
     pathway = <Important />;
+  }
+
+  if (isLoading || isLoading2) {
+    return <Spinner />;
   }
 
   return (
