@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useUser from "../hooks/useUser";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import config from "../env/config";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -24,11 +25,13 @@ export default function Register() {
   }, [navigate, user, isLoading]);
 
   useEffect(() => {
+    const { password, fullname, phoneNumber, email } = formData;
+
     if (
-      formData.password.length >= 8 &&
-      formData.fullname.length >= 3 &&
-      formData.phoneNumber.length >= 10 &&
-      formData.email.length >= 5
+      password.length >= 8 &&
+      fullname.length >= 3 &&
+      phoneNumber.length >= 10 &&
+      email.length >= 5
     ) {
       setDisabled(false);
     } else {
@@ -36,14 +39,20 @@ export default function Register() {
     }
   }, [formData]);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const handleRegister = useCallback(
     async (e) => {
       e.preventDefault();
       try {
-        const register = await axios.post(
-          "https://todo-app-o8uu.onrender.com/users/register",
-          formData
-        );
+        const url = new URL("/users/register", config.apiUrl);
+        await axios.post(url, formData);
         toast.success("Register successfully");
         navigate("/auth");
       } catch (error) {
@@ -74,44 +83,44 @@ export default function Register() {
           <Form.Group className="text-white py-2" controlId="formBasicName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
-              onChange={(e) =>
-                setFormData({ ...formData, fullname: e.target.value })
-              }
+              onChange={handleChange}
+              name="fullname"
               type="text"
               placeholder="Enter name"
+              required
             />
           </Form.Group>
 
           <Form.Group className="text-white py-2" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onChange={handleChange}
               type="email"
+              name="email"
               placeholder="Enter email"
+              required
             />
           </Form.Group>
 
           <Form.Group className="text-white py-2" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
+              onChange={handleChange}
+              name="password"
               type="password"
               placeholder="Password"
+              required
             />
           </Form.Group>
 
           <Form.Group className="text-white py-2" controlId="formBasicPhone">
             <Form.Label>Phone number</Form.Label>
             <Form.Control
-              onChange={(e) =>
-                setFormData({ ...formData, phoneNumber: e.target.value })
-              }
+              onChange={handleChange}
               type="text"
               placeholder="Phone number"
+              name="phoneNumber"
+              required
             />
           </Form.Group>
 

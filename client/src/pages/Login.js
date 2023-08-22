@@ -1,4 +1,3 @@
-// import needed library and routers
 import React, { useCallback, useEffect, useState } from "react";
 import { Form, Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -6,10 +5,9 @@ import { useNavigate } from "react-router-dom";
 import useUser from "../hooks/useUser";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import config from "../env/config";
 
 export default function Login() {
-  // navigate to screen
-
   const { data: user, isLoading } = useUser();
   const navigate = useNavigate();
 
@@ -22,14 +20,21 @@ export default function Login() {
     password: "",
   });
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   const handleLogin = useCallback(
     async (e) => {
       e.preventDefault();
       try {
-        const login = await axios.post(
-          "https://todo-app-o8uu.onrender.com/users/login",
-          formData
-        );
+        const url = new URL("/users/login", config.apiUrl);
+        const login = await axios.post(url, formData);
+
         localStorage.setItem("token", login.data.token);
         localStorage.setItem("userID", login.data.user._id);
         toast.success("Login successful");
@@ -66,22 +71,22 @@ export default function Login() {
           <Form.Group className="text-white py-2" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
+              onChange={handleChange}
+              name="email"
               type="email"
               placeholder="Enter email"
+              required
             />
           </Form.Group>
 
           <Form.Group className="text-white py-2" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
+              onChange={handleChange}
+              name="password"
               type="password"
               placeholder="Password"
+              required
             />
           </Form.Group>
 

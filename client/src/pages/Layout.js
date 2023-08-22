@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/bars/Sidebar";
-import TodoList from "../components/home/TodoList";
+import Home from "../components/home/Home";
 import Important from "../components/important/Important";
 import { BarProvider } from "../context/BarContext";
 import useUser from "../hooks/useUser";
@@ -20,7 +20,7 @@ export default function Layout() {
   }, [navigate, isLoading, user]);
 
   if (path === "/") {
-    pathway = <TodoList />;
+    pathway = <Home />;
   } else if (path === "/important") {
     pathway = <Important />;
   }
