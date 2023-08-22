@@ -2,7 +2,6 @@ import { useBarContext } from "../../context/BarContext";
 
 export default function Rightbar({ todo, index }) {
   const { activeIndex, toggleBar } = useBarContext();
-  const date = new Date(todo.createdAt);
 
   const getDate = (date) => {
     return new Date(date).toLocaleTimeString("en-US", {
